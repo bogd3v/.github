@@ -1,0 +1,39 @@
+name: Add to project
+
+# Adds an issue or a pull request of a Micelio repository to the organisation project
+# https://github.com/orgs/bogd3v/projects/1. A repository calls it from its own workflow:
+#
+#   on:
+#     issues:
+#       types: [opened]
+#     pull_request_target:
+#       types: [opened]
+#   permissions: {}
+#   jobs:
+#     add:
+#       uses: bogd3v/.github/.github/workflows/add-to-project.yml@<commit SHA> # main
+#       secrets:
+#         ADD_TO_PROJECT_PAT: ${{ secrets.ADD_TO_PROJECT_PAT }}
+#
+# pull_request_target gives pull requests from forks the secret. This is safe because the job checks out
+# nothing and runs nobody's code. The token is the organisation secret ADD_TO_PROJECT_PAT, a token with the
+# project scope that the maintainer creates.
+
+on:
+  workflow_call:
+    secrets:
+      ADD_TO_PROJECT_PAT:
+        required: true
+
+permissions: {}
+
+jobs:
+  add:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Add to the Micelio project
+        uses: actions/add-to-project@5afcf98fcd03f1c2f92c3c83f58ae24323cc57fd # v2.0.0
+        with:
+          project-url: https://github.com/orgs/bogd3v/projects/1
+          github-token: ${{ secrets.ADD_TO_PROJECT_PAT }}
