@@ -11,6 +11,10 @@ updates:
       timezone: America/Bogota
     commit-message:
       prefix: ci
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - version-update:semver-major
     groups:
       actions:
         patterns:
