@@ -1,0 +1,20 @@
+# Only the workflows have dependencies here: the actions they pin by commit SHA.
+# Same schedule and grouping as micelio-engineering's template (template/.github/dependabot.yml).
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: '06:00'
+      timezone: America/Bogota
+    commit-message:
+      prefix: ci
+    groups:
+      actions:
+        patterns:
+          - '*'
+        update-types:
+          - minor
+          - patch
